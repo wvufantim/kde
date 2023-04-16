@@ -100,7 +100,7 @@ function generate_flatpak_install_script() {
     echo "INFO: Generating flatpak installer script in $INSTALLFLATPACKSCRIPT" | tee -a "$LOGFILE"
     echo "$SHEBANG" > "$INSTALLFLATPACKSCRIPT"
     case $DISTRO in
-        debian|ubuntu|linuxmint|pop|elementary|zorin)
+        debian|ubuntu|linuxmint|neon|elementary|zorin)
         cat <<EOT >> "$INSTALLFLATPACKSCRIPT"
 # Documentation: https://flatpak.org/setup/
 sudo apt update
@@ -187,7 +187,7 @@ function generate_remove_snapd_script() {
     echo "$SHEBANG" > "$REMOVESNAPDSCRIPT" 
     echo "echo Removing snapd" >> "$REMOVESNAPDSCRIPT" 
     case $DISTRO in
-        debian|ubuntu|linuxmint|pop|elementary|zorin)
+        debian|ubuntu|linuxmint|neon|elementary|zorin)
             echo "sudo apt remove snapd" >> "$REMOVESNAPDSCRIPT"
             ;;
         *)
@@ -247,7 +247,7 @@ function determine_distro() {
     # TODO: Add more distros
     CANDIDATE=$(grep -w ID /etc/os-release | awk -F "=" '{ print $2} ')
     case $CANDIDATE in
-        debian|ubuntu|linuxmint|pop|elementary|zorin)
+        debian|ubuntu|linuxmint|neon|elementary|zorin)
             DISTRO="$CANDIDATE"
             ;;
         *)
